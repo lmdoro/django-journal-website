@@ -1,0 +1,46 @@
+{% extends 'entries/base.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="container">
+        <h1> Results </h1>
+        <hr>
+        {% for entry in object_list %}
+        <h4>{{ entry.title }} </h4>
+        <small><a href="{% url 'entry-detail' entry.id %}" class="text-primary"><i class="fas fa-caret-right"></i>
+                        Detail</a></small>&nbsp;
+        <small><a href="{% url 'update-entry' entry.id %}" class="text-info"><i class="fas fa-pen-square"></i>
+                        Edit</a></small>&nbsp;
+        <small><a href="{% url 'delete-entry' entry.id %}" class="text-danger"><i class="fas fa-times"></i>
+                        Delete</a></small>&nbsp;
+        <h5><i class="fas fa-stopwatch"></i>
+                {{ entry.date_posted|date:"j M, Y - g: i A"}}</h5>
+        <p>{{ entry.content|linebreaksbr }}</p>
+        <hr>
+        {% empty %}
+        <h5>No results match your search</h5>
+        <br>
+        {% endfor %}
+
+
+        <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a class = "btn btn-outline-info mb-4" href="?page=1" >&laquo; first</a>
+                        <a class = "btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span style="font-size:28px">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+            
+                    {% if page_obj.has_next %}
+                        <a class = "btn btn-outline-info mb-3" href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a class = "btn btn-outline-info mb-3" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+
+{% endblock %}

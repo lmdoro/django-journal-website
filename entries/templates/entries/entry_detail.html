@@ -1,0 +1,19 @@
+{% extends 'entries/base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    <br>
+    <h4 name="title">{{ entry.title }} </h4>
+    <h5><i class="fas fa-stopwatch"></i> {{ entry.date_posted|date:"j M, Y - g: i A"}}</h2>
+    <p>{{ entry.content }}</p>   
+    <br>
+    <small><a href="{% url 'delete-entry' entry.id %}" class="text-danger"><i class="fas fa-times"></i>
+        Delete</a></small>&nbsp;
+    <small><a href="{% url 'update-entry' entry.id %}" class="text-info"><i class="fas fa-pen-square"></i>
+            Edit</a></small>&nbsp;
+</div>
+
+
+{% endblock %}
